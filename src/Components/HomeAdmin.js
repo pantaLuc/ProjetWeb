@@ -3,8 +3,14 @@ import { MdGroups } from 'react-icons/md';
 import { MdDeleteForever } from 'react-icons/md';
 import RessourcesResp from './RessourcesResp';
 import Search from './Search';
+import { MdPersonAdd } from 'react-icons/md';
+import AddUser from './AddUser'
+
 
 export default function Home(props){
+    const [showAdd, setShowAdd] = useState(false);
+    const handleCloseAdd = () => setShowAdd(false);
+    const rowEventsAdd = () => { setShowAdd(true); }
     const [Showlistressources, setShowlistressources] = useState(false);
     const handleCloselist = () => setShowlistressources(false);
     const rowEventslist = () => { setShowlistressources(true); }
@@ -49,7 +55,10 @@ export default function Home(props){
                 <table class="table table-hover" >
                     <thead>
                         <tr>
-                        <th scope="col">Identifiant</th>
+                        <th scope="col">
+                            <button type="button" className="btn btn-outline-success"  onClick={rowEventsAdd}> <MdPersonAdd/>  </button>
+
+                             Identifiant</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
                         <th scope="col">Service</th>
@@ -77,7 +86,8 @@ export default function Home(props){
                         
                     </tbody>
                     </table>
-                    <RessourcesResp rowEventslist={Showlistressources} handleClose={handleCloselist} />
+                    <AddUser rowEventsAdd={showAdd} handleClose={handleCloseAdd} />
+                    <RessourcesResp rowEventslist={Showlistressources} handleClose={handleCloselist}/>
 
             </div>
         )

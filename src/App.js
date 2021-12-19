@@ -8,6 +8,7 @@ import HomeAdmin from './Components/HomeAdmin';
 import HomeGuest from './Components/HomeGuest';
 import SignalerAnomalie from './Components/SignalerAnomalie';
 import Home from './Components/Home';
+import HomeResponsable from './Components/HomeResponsable';
 
 function App() {
   const particlesInit = (main) => {
@@ -106,6 +107,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/HomeAdmin" element={<HomeAdmin />} />
+          <Route path="/HomeResp" element={<HomeResponsable />} />
           <Route path="/HomeGuest" element={<HomeGuest />} />
           <Route path="/SignalerAnomalie" element={<SignalerAnomalie />} />
         </Routes>
