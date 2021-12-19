@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 
 export default function Delete(props) {
         return (
-            <Modal show={props.rowEventsDelete} onHide={props.handleClose}  >
+            <Modal show={props.rowEventsDelete} onHide={props.handleClose} >
                 <Modal.Header closeButton>
                     <Modal.Title>Supprimer</Modal.Title>
                 </Modal.Header>

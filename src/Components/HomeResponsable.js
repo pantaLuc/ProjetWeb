@@ -6,8 +6,11 @@ import RessourcesResp from './RessourcesResp';
 import Search from './Search';
 import { BiListPlus } from 'react-icons/bi';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
+import { BsListStars } from 'react-icons/bs';
 import AddRessources from './AddRessources';
 import Delete from './Delete';
+import UpdateRessource from './UpdateRessource';
+import UpdateAnomalies from './UpdateAnomalies';
 
 export default function Homeressourcensable(props){
     const [showAddRessource, setshowAddRessource] = useState(false);
@@ -17,6 +20,15 @@ export default function Homeressourcensable(props){
     const [showDeleteRessource, setshowDeleteRessource] = useState(false);
     const handleCloseDeleteRessource = () => setshowDeleteRessource(false);
     const rowEventsDelete = () => { setshowDeleteRessource(true); }
+
+    const [showUpdateRessource, setshowUpdateRessource] = useState(false);
+    const handleCloseUpdateRessource = () => setshowUpdateRessource(false);
+    const rowEventsUpdate = () => { setshowUpdateRessource(true); }
+
+    const [showUpdateAnomalie, setshowUpdateAnomalie] = useState(false);
+    const handleCloseUpdateAnamalie = () => setshowUpdateAnomalie(false);
+    const rowEventsUpdateAnomalie = () => { setshowUpdateAnomalie(true); }
+
     const [searchField, setsearchField] = useState('');
     const [ListeRessource, setListeRessource] = useState(
         [{
@@ -48,7 +60,7 @@ export default function Homeressourcensable(props){
     ));
         return (
             <div className="container">
-                <h1 style={{textAlign:"center"}}>  Mes ressources :</h1>
+                <h1 style={{textAlign:"center"}}> <BsListStars/> Mes ressources :</h1>
                 <Search placeholder='Chercher par Nom/Code de la ressource' handleChange={(e)=>setsearchField(e.target.value)}/>
                 <table class="table table-hover" >
                     <thead>
@@ -58,7 +70,7 @@ export default function Homeressourcensable(props){
                             Code</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Nombre d'anomalie</th>
+                        <th scope="col">Nombre d'anomalies</th>
                         <th scope="col" colSpan={2}>Modifer la ressource</th>
                         
                         </tr>
@@ -71,8 +83,8 @@ export default function Homeressourcensable(props){
                             <th scope="row">{ressource.Code}</th>
                             <td>{ressource.Nom}</td>
                             <td>{ressource.Description}</td>
-                            <td><a href='#' >{ressource.NbreAnomalie}</a></td>
-                            <td style={{color:"green"}}><MdOutlineModeEditOutline/></td>
+                            <td ><a href='#' class="badge bg-info rounded-pill" onClick={rowEventsUpdateAnomalie}>{ressource.NbreAnomalie}</a></td>
+                            <td style={{color:"green"}}onClick={rowEventsUpdate}><MdOutlineModeEditOutline/></td>
                             <td style={{color:"red"}} onClick={rowEventsDelete}><MdDeleteForever/></td>
                         </tr>);
                         })
@@ -83,6 +95,8 @@ export default function Homeressourcensable(props){
                     </table>
                     <AddRessources rowEventsAddRessource={showAddRessource} handleClose={handleCloseAddRessource} />
                     <Delete rowEventsDelete={showDeleteRessource} handleClose={handleCloseDeleteRessource}/>
+                    <UpdateRessource rowEventsUpdate={showUpdateRessource} handleClose={handleCloseUpdateRessource}/>
+                    <UpdateAnomalies rowEventsUpdateAnomalie={showUpdateAnomalie} handleClose={handleCloseUpdateAnamalie}/>
             </div>
         )
 }
