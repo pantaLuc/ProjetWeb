@@ -1,5 +1,5 @@
 import React,{ useState } from 'react'
-import { MdPersonSearch } from "react-icons/md";
+import { BiSearchAlt } from "react-icons/bi";
 
 
 export default function Search(props){
@@ -12,7 +12,7 @@ export default function Search(props){
                          placeholder={props.placeholder}
                          onChange={props.handleChange}
                          />
-                    <span class="input-group-text"><MdPersonSearch/></span>
+                    <span class="input-group-text"><BiSearchAlt/></span>
                 </div>
         </div>
     )

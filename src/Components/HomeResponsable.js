@@ -1,5 +1,5 @@
 
-import React ,{useState} from 'react'
+import React ,{useState,useRef} from 'react'
 import { MdGroups } from 'react-icons/md';
 import { MdDeleteForever } from 'react-icons/md';
 import RessourcesResp from './RessourcesResp';
@@ -11,8 +11,12 @@ import AddRessources from './AddRessources';
 import Delete from './Delete';
 import UpdateRessource from './UpdateRessource';
 import UpdateAnomalies from './UpdateAnomalies';
+import PrintComponent from './PrintComponent';
+
+
 
 export default function Homeressourcensable(props){
+    const componentRef = useRef();
     const [showAddRessource, setshowAddRessource] = useState(false);
     const handleCloseAddRessource = () => setshowAddRessource(false);
     const rowEventsAddRessource = () => { setshowAddRessource(true); }
@@ -62,12 +66,13 @@ export default function Homeressourcensable(props){
             <div className="container">
                 <h1 style={{textAlign:"center"}}> <BsListStars/> Mes ressources :</h1>
                 <Search placeholder='Chercher par Nom/Code de la ressource' handleChange={(e)=>setsearchField(e.target.value)}/>
-                <table class="table table-hover" >
+                <table class="table table-hover">
                     <thead>
                         <tr>
                         <th scope="col">
                         <button type="button" className="btn btn-outline-success" onClick={rowEventsAddRessource}> <BiListPlus/>  </button>
-                            Code</th>
+                            </th>
+                        <th scope="col">Code</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Description</th>
                         <th scope="col">Nombre d'anomalies</th>
@@ -80,7 +85,10 @@ export default function Homeressourcensable(props){
                                         ? filtreedRessources.map((ressource) => {
                                             
                         return(<tr class="table-info">
-                            <th scope="row">{ressource.Code}</th>
+                            <th scope="row">
+                                <PrintComponent/>
+                            </th>
+                            <td>{ressource.Code}</td>
                             <td>{ressource.Nom}</td>
                             <td>{ressource.Description}</td>
                             <td ><a href='#' class="badge bg-info rounded-pill" onClick={rowEventsUpdateAnomalie}>{ressource.NbreAnomalie}</a></td>
@@ -93,7 +101,7 @@ export default function Homeressourcensable(props){
                         
                     </tbody>
                     </table>
-                    <AddRessources rowEventsAddRessource={showAddRessource} handleClose={handleCloseAddRessource} />
+                    <AddRessources ref={componentRef} rowEventsAddRessource={showAddRessource} handleClose={handleCloseAddRessource} />
                     <Delete rowEventsDelete={showDeleteRessource} handleClose={handleCloseDeleteRessource}/>
                     <UpdateRessource rowEventsUpdate={showUpdateRessource} handleClose={handleCloseUpdateRessource}/>
                     <UpdateAnomalies rowEventsUpdateAnomalie={showUpdateAnomalie} handleClose={handleCloseUpdateAnamalie}/>

@@ -2,6 +2,8 @@ import React  from 'react'
 import { Modal, Button } from 'react-bootstrap';
 
 export default function AddRessources(props) {
+    const imprimerPage = () => { window.print();  }
+
         return (
             <Modal show={props.rowEventsAddRessource} onHide={props.handleClose}  >
                 <Modal.Header closeButton>
@@ -25,6 +27,7 @@ export default function AddRessources(props) {
                             <label for="exampleTextarea" class="form-label">Description de la ressource :</label>
                             <textarea class="form-control" id="exampleTextarea" rows="3"placeholder='Une petite description de votre ressource..'></textarea>
                         </div>
+
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -39,4 +42,3 @@ export default function AddRessources(props) {
         </Modal>
         )
 }
-
