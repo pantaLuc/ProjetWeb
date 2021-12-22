@@ -1,5 +1,6 @@
 import './App.css';
-import { Route ,Routes ,BrowserRouter} from 'react-router-dom';
+import React, { useState} from 'react'
+import { Route ,Routes,Navigate ,BrowserRouter,} from 'react-router-dom';
 import Particles from "react-tsparticles";
 
 import Header from './Components/Header';
@@ -11,9 +12,18 @@ import Home from './Components/Home';
 import HomeResponsable from './Components/HomeResponsable';
 import Service from './Components/Service';
 import Localisation from './Components/Localisation';
+import Login from './Components/Login';
 
 
 function App() {
+  const [login, setLogin] = useState(false);
+
+    const changeLogin = ((e) => {
+        setLogin(e);
+        if(e=== false){
+            localStorage.removeItem('token');
+        }
+    });
   const particlesInit = (main) => {
     console.log(main);
   };
@@ -105,10 +115,18 @@ function App() {
         detectRetina: true,
       }}
     />*/}
-      <Header/>
+   
       <BrowserRouter>
+      <Header/>
         <Routes>
-          <Route path="/" element={<Home/>} />
+          
+        {login ?
+                    ( <Route path="/HomeAdmin" element={<HomeAdmin />} />) :
+                    (<Route path="/"  element={<Home/>}/>)
+          }
+          
+          <Route path="/Login"element={<Login changeLogin={changeLogin} logintest={login}/>}/>
+          <Route path="/"  element={<Home/>}/>
           <Route path="/HomeAdmin" element={<HomeAdmin />} />
           <Route path="/HomeResp" element={<HomeResponsable />} />
           <Route path="/HomeGuest" element={<HomeGuest />} />

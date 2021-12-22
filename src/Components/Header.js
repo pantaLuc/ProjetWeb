@@ -1,4 +1,5 @@
 import React, { useState} from 'react'
+import { NavLink  } from "react-router-dom";
 import { AiOutlineLogout } from 'react-icons/ai';
 import { AiOutlineLogin } from 'react-icons/ai';
 import { GiAutoRepair } from "react-icons/gi";
@@ -21,16 +22,16 @@ export default function Header(props) {
                     <div className="collapse navbar-collapse" style={show?{display:"block"}:{display:'none'}}>
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item">
-                            <a className="nav-link active" href="#"><AiOutlineHome/> Home </a>
+                            <NavLink className="nav-link active" to="/"><AiOutlineHome/> Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="#"><MdGroups/> Gestion des Responsables </a>
+                            <NavLink className="nav-link active" to="/HomeAdmin"><MdGroups/> Gestion des Responsables</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="#"><MdMiscellaneousServices/> Gestion des Services </a>
+                            <NavLink className="nav-link active" to="/Service"><MdMiscellaneousServices/> Gestion des Services</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link active" href="#"><BiCurrentLocation/> Gestion des Localisations </a>
+                            <NavLink className="nav-link active" to="/Localisation"><BiCurrentLocation/> Gestion des Localisations</NavLink>
                         </li>
                         
                     </ul>

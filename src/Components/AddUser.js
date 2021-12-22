@@ -1,37 +1,99 @@
-import React  from 'react'
+import React ,{useState} from 'react'
 import { Modal, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 export default function AddUser(props) {
+    const [identifiant, setidentifiant] = useState();
+    const [nom, setnom] = useState();
+    const [prenom, setprenom] = useState();
+    const [email, setemail] = useState();
+    const [password, setPassword] = useState("");
+    const [confirm_password, setConfirm_password] = useState("");
+    const handleSubmit = (values) => {
+        values.preventDefault();
+        const user = {
+            username: identifiant,
+            first_name: nom,
+            last_name: prenom,
+            email: email,
+            password: password,
+            role: "responsable"
+        };
+        console.log(user);
+        axios({
+            method: "POST",
+            url: "https://gest-maintance-univ-rouen.herokuapp.com/api/users/register/",
+            data: JSON.stringify(user),
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        }).then(res => {
+            console.log(res)
+                props.handleClose();
+            });
+    };
         return (
             <Modal show={props.rowEventsAdd} onHide={props.handleClose}  >
                 <Modal.Header closeButton>
                     <Modal.Title>Ajouter un Responsable de Maintenance</Modal.Title>
                 </Modal.Header>
-                <form >
+                <form onSubmit={handleSubmit}>
                 <Modal.Body>
                     <div>
                         <div class="form-group">
                             <label for="id" class="form-label mt-2">Identifiant :</label>
-                            <input type="text" class="form-control" id="id" placeholder="ABC123"/>
+                            <input type="text" class="form-control" id="id" placeholder="ABC123" onChange={(event) => { setidentifiant(event.target.value) }}required/>
                             <small class="form-text text-muted">Chaque responsable a un identifiant unique.</small>
                         </div>
                         <div class=" row form-group">
                             <div class="col-sm">
-                                <input type="text" class="form-control" id="nom"  placeholder="Nom"/>
+                                <input type="text" class="form-control" id="nom"  placeholder="Nom"onChange={(event) => { setnom(event.target.value) }}required/>
                             </div>
                             <div class="col-sm">
-                            <input type="text" class="form-control" id="prenom"placeholder="Prénom"/>
+                            <input type="text" class="form-control" id="prenom"placeholder="Prénom"onChange={(event) => { setprenom(event.target.value) }}required/>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="exemple@gmail.com" onChange={(event) => { setemail(event.target.value) }}required/>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="service" placeholder="Le service du responsable"/>
-                            <small class="form-text text-muted">* Le service n'est pas obligatoire.</small>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="motdepasse1" placeholder="Mot de passe"/>
+                            <input 
+                                type="password" 
+                                id="motdepasse1" 
+                                placeholder="Mot de passe" 
+                                onChange={(event)=>{setPassword(event.target.value);}}
+                                className={(password.length === 0
+                                            ?"form-control"
+                                            :(password.length >=6?"form-control is-valid":"form-control is-invalid")
+                                            )}
+                                required
+                                />
+                                  <div className="invalid-feedback">Le mot de passe doit contenir au moins 6 caractères!</div>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="motdepasse1" placeholder="Confirmer le Mot de passe"/>
+                            <input 
+                                type="password" 
+                                id="motdepasse2" 
+                                placeholder="Confirmer le Mot de passe"
+                                onChange={(event)=>{setConfirm_password(event.target.value);}}
+                                className={(
+                                    ((password.length === 0 || confirm_password.length === 0) 
+                                        || 
+                                        (password.length >=6  && password === confirm_password)
+                                    )?
+                                    "form-control "+(
+                                                    (password.length !== 0 && confirm_password.length !== 0 && password === confirm_password)
+                                                    ?"is-valid":""
+                                                    )
+                                    :"form-control is-invalid"
+                                )}
+                                required
+                                />
+                                <div className="invalid-feedback">Les mots de passe ne sont pas identiques!</div>
+                                <div class="valid-feedback">Parfait! Les mots de passe sont identiques!</div>
                         </div>
                     </div>
                 </Modal.Body>
