@@ -1,29 +1,55 @@
 import React, { useState } from 'react'//useEffect
 import axios from 'axios';
 import { BsFileEarmarkLock } from 'react-icons/bs';
- 
-export default function Login(props) {
+import PropTypes from 'prop-types';
+import Home from './Home';
+
+async function loginUser(credentials) {
+    return axios({
+        method: "POST",
+        url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/login/`,
+        data: JSON.stringify(credentials),
+        headers: {
+            'Content-Type': 'application/json'
+            
+        }
+    }).then(res => {return res.data.token});}
+
+   
+export default function Login({ setToken }) {
+    const [roleuser, setroleuser ] = useState('guest');
+
+    const [token, settoken] = useState("");
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
-    const handleSubmitLogin = (values) => {
+   
+    const handleSubmitLogin = async (values) => {
         values.preventDefault();
-        const login = {
+        const token = await loginUser({
+            username: username,
+            password: password
+          });
+          setToken(token);
+       /* const login = {
             username: username,
             password: password
         };
         console.log(login);
-        axios({
+        await axios({
             method: "POST",
             url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/login/`,
             data: JSON.stringify(login),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
+                
             }
         }).then(res => {
             console .log(res)
-                localStorage.setItem('token', JSON.stringify(res.data.token));
+            settoken(JSON.stringify(res.data.token));
+            localStorage.setItem('token', JSON.stringify(res.data.token));
             setusername(""); setpassword("");
         });
+        await console.log("tokon="+localStorage.getItem('token'))*/
     };
 
     return (
@@ -45,3 +71,6 @@ export default function Login(props) {
     </div>
     )
 }
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
+  }

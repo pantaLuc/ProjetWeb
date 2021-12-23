@@ -13,123 +13,46 @@ import HomeResponsable from './Components/HomeResponsable';
 import Service from './Components/Service';
 import Localisation from './Components/Localisation';
 import Login from './Components/Login';
-
-
+import useToken from './useToken';
+import axios from 'axios'
 function App() {
-  const [login, setLogin] = useState(false);
 
-    const changeLogin = ((e) => {
-        setLogin(e);
-        if(e=== false){
-            localStorage.removeItem('token');
-        }
-    });
-  const particlesInit = (main) => {
-    console.log(main);
-  };
+  const [infouser, setinfouser ] = useState();
+  const [roleuser, setroleuser ] = useState('guest');
+  const { token, setToken } = useToken();
+  console.log(token)
+  if(!token) {
+    return <Login setToken={setToken} />
+  }else{
+    console.log("logiiin")
+    axios({
+      method: "GET",
+      url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/user/`,
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization':`Token ${token}`
+      }
+  }).then(res =>
+    { console.log(res.data.role)
+      setroleuser(res.data.role)
+    }
+    );
+  }
 
-  const particlesLoaded = (container) => {
-    console.log(container);
-  };
   return (
     <div className="App">
-      {/*<Particles
-      id="tsparticles"
-      init={particlesInit}
-      loaded={particlesLoaded}
-      options={{
-        background: {
-          color: {
-            value: "#eae9f5",
-          },
-        },
-        fpsLimit: 60,
-        interactivity: {
-          events: {
-            onClick: {
-              enable: true,
-              mode: "push",
-            },
-            onHover: {
-              enable: true,
-              mode: "repulse",
-            },
-            resize: true,
-          },
-          modes: {
-            bubble: {
-              distance: 400,
-              duration: 2,
-              opacity: 0.8,
-              size: 40,
-            },
-            push: {
-              quantity: 4,
-            },
-            repulse: {
-              distance: 200,
-              duration: 0.4,
-            },
-          },
-        },
-        particles: {
-          color: {
-            value: "#000000",
-          },
-          links: {
-            color: "#000000",
-            distance: 150,
-            enable: true,
-            opacity: 0.5,
-            width: 1,
-          },
-          collisions: {
-            enable: true,
-          },
-          move: {
-            direction: "none",
-            enable: true,
-            outMode: "bounce",
-            random: false,
-            speed: 1,
-            straight: false,
-          },
-          number: {
-            density: {
-              enable: true,
-              value_area: 800,
-            },
-            value: 80,
-          },
-          opacity: {
-            value: 0.5,
-          },
-          shape: {
-            type: "circle",
-          },
-          size: {
-            random: true,
-            value: 5,
-          },
-        },
-        detectRetina: true,
-      }}
-    />*/}
-   
       <BrowserRouter>
       <Header/>
         <Routes>
           
-        {login ?
+        {/*login ?
                     ( <Route path="/HomeAdmin" element={<HomeAdmin />} />) :
                     (<Route path="/"  element={<Home/>}/>)
-          }
-          
-          <Route path="/Login"element={<Login changeLogin={changeLogin} logintest={login}/>}/>
+        */}
+         <Route path="/HomeGuest" element={<HomeGuest />} />
+         <Route path="/HomeAdmin" element={<HomeAdmin />} />
+         <Route path="/HomeResp" element={<HomeResponsable />} />
           <Route path="/"  element={<Home/>}/>
-          <Route path="/HomeAdmin" element={<HomeAdmin />} />
-          <Route path="/HomeResp" element={<HomeResponsable />} />
-          <Route path="/HomeGuest" element={<HomeGuest />} />
           <Route path="/Service" element={<Service />} />
           <Route path="/Localisation" element={<Localisation/>} />
           <Route path="/SignalerAnomalie" element={<SignalerAnomalie />} />
