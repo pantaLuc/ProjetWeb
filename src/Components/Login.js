@@ -4,7 +4,8 @@ import { BsFileEarmarkLock } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import Home from './Home';
 
-async function loginUser(credentials) {
+async function loginUser(credentials,props) {
+    
     return axios({
         method: "POST",
         url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/login/`,
@@ -13,10 +14,13 @@ async function loginUser(credentials) {
             'Content-Type': 'application/json'
             
         }
-    }).then(res => {return res.data.token});}
+    }).then(res => {
+        return (res.data.token)
+    });
+}
 
    
-export default function Login({ setToken }) {
+export default function Login({ setToken },props) {
     const [roleuser, setroleuser ] = useState('guest');
 
     const [token, settoken] = useState("");
@@ -28,7 +32,7 @@ export default function Login({ setToken }) {
         const token = await loginUser({
             username: username,
             password: password
-          });
+          },props);
           setToken(token);
        /* const login = {
             username: username,

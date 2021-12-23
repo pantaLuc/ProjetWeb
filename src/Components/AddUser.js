@@ -57,9 +57,6 @@ export default function AddUser(props) {
                             <input type="email" class="form-control" id="email" placeholder="exemple@gmail.com" onChange={(event) => { setemail(event.target.value) }}required/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="service" placeholder="Le service du responsable"/>
-                        </div>
-                        <div class="form-group">
                             <input 
                                 type="password" 
                                 id="motdepasse1" 

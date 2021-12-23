@@ -49,10 +49,10 @@ function App() {
                     ( <Route path="/HomeAdmin" element={<HomeAdmin />} />) :
                     (<Route path="/"  element={<Home/>}/>)
         */}
-         <Route path="/HomeGuest" element={<HomeGuest />} />
-         <Route path="/HomeAdmin" element={<HomeAdmin />} />
-         <Route path="/HomeResp" element={<HomeResponsable />} />
-          <Route path="/"  element={<Home/>}/>
+        <Route path="/"  element={<Home/>}/>
+        <Route path="/HomeAdmin"  element={<HomeAdmin/>}/>
+          <Route path="/HomeRespo"  element={<HomeResponsable/>}/>
+          <Route path="/HomeGuest"  element={<HomeGuest/>}/>
           <Route path="/Service" element={<Service />} />
           <Route path="/Localisation" element={<Localisation/>} />
           <Route path="/SignalerAnomalie" element={<SignalerAnomalie />} />

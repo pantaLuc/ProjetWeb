@@ -11,7 +11,7 @@ export default function AddLocalisation(props) {
         const localisation = {
             code: code,
             libelle: libelle,
-            localisation: description
+            description: description
         };
         console.log(localisation);
         axios({

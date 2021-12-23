@@ -1,37 +1,16 @@
-import React ,{useState} from 'react';
+import React ,{useState,useEffect} from 'react';
 import { BiCurrentLocation } from 'react-icons/bi';
 import { MdDeleteForever ,MdAddLocationAlt} from 'react-icons/md';
 import AddLocalisation from './AddLocalisation';
 import Search from './Search';
+import axios from 'axios'
 export default function Localisation(props){
     const [showAddLocal, setshowAddLocal] = useState(false);
     const handleCloseAddLocal = () => setshowAddLocal(false);
     const rowEventsAddLocal = () => { setshowAddLocal(true); }
 
     const [searchField, setsearchField] = useState('');
-    const [ListeLocalisation, setListeLocalisation] = useState(
-        [{
-            libelle:'lieu1',
-            code:'19/12/2021',
-            description:'55description lieu 1'
-        },
-        {
-            libelle:'lieu112',
-            code:'09/12/2021',
-            description:'description lieu 2'
-        },
-        {
-            libelle:'lieu133',
-            code:'10/12/2021',
-            description:'description lieu 3'
-        },
-        {
-            libelle:'lieu253',
-            code:'25/12/2021',
-            description:'description lieu 4'
-        },
-       
-    ]);
+    const [ListeLocalisation, setListeLocalisation] = useState([]);
     const filtreedLocalisation=ListeLocalisation.filter(local=>(
         local.code.toLowerCase().includes(searchField.toLowerCase())
             ||
@@ -39,6 +18,12 @@ export default function Localisation(props){
             ||
             local.description.toLowerCase().includes(searchField.toLowerCase())
     ));
+    useEffect(() => {
+        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/lisLocalisation`)
+                .then((res) => {
+                    setListeLocalisation(res.data);
+                });
+      }, [handleCloseAddLocal]);
         return (
             <div className='container'>
                 <h1 style={{textAlign:"center"}}><BiCurrentLocation/> Les Localisations :</h1>

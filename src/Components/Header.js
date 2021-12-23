@@ -16,17 +16,16 @@ export default function Header(props) {
     const { token, setToken } = useToken();
     const [show, setShow] = useState(false);
     console.log(localStorage.getItem('token'))
+   
     
         return (
             <div>
-                {console.log('roleuser')}
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container-fluid">
                     <NavLink className="navbar-brand" to="/"><GiAutoRepair/>WeReportIT</NavLink>
                     <button className="navbar-toggler" type="button" onClick={()=>setShow(!show)}>
                     <span className="navbar-toggler-icon"></span>
                     </button>
-                    {roleuser==='admin'&&
                     <div className="collapse navbar-collapse" style={show?{display:"block"}:{display:'none'}}>
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item">
@@ -47,13 +46,7 @@ export default function Header(props) {
                     </form>
                     
                     </div>
-                    }
-                    {roleuser==='responsable'&&
-                    <form className="d-flex">
-                    <button className="btn btn-secondary my-2 my-sm-0" type="submit"><AiOutlineLogout/>Déconnexion</button>
-                    <button className="btn btn-secondary my-2 my-sm-0" type="submit"><AiOutlineLogin/> Connexion</button>
-                </form>
-                    }
+                    
                 </div>
             </nav>  
             </div>

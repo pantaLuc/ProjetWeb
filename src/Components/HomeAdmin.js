@@ -1,4 +1,4 @@
-import React ,{useState} from 'react'
+import React ,{useState,useEffect} from 'react'
 import { MdGroups } from 'react-icons/md';
 import { MdDeleteForever } from 'react-icons/md';
 import RessourcesResp from './RessourcesResp';
@@ -18,38 +18,22 @@ export default function Home(props){
     const rowEventslist = () => { setShowlistressources(true); }
     const [searchField, setsearchField] = useState('');
     const [ListeRespo, setListeRespo] = useState(
-                                        [{
-                                            Identifiant:'id1',
-                                            nom:'elaidi',
-                                            prenom:'ichraq',
-                                            nbrAnomali:2,
-                                            service:'Info'  
-                                        },
-                                        {
-                                            Identifiant:'id2',
-                                            nom:'panta',
-                                            prenom:'luc',
-                                            nbrAnomali:1,
-                                            service:'chimie'  
-                                        },
-                                        {
-                                            Identifiant:'id3',
-                                            nom:'jerr',
-                                            prenom:'safae',
-                                            nbrAnomali:5,
-                                            service:'physique'  
-                                        },
-                                    ]);
+                                        []);
         const filtreedRespo=ListeRespo.filter(respo=>(
-            respo.Identifiant.toLowerCase().includes(searchField.toLowerCase())
+            respo.username.toLowerCase().includes(searchField.toLowerCase())
                 ||
-            respo.nom.toLowerCase().includes(searchField.toLowerCase())
+            respo.first_name.toLowerCase().includes(searchField.toLowerCase())
                 ||
-            respo.prenom.toLowerCase().includes(searchField.toLowerCase())
+            respo.last_name.toLowerCase().includes(searchField.toLowerCase())
                 ||
-            respo.service.toLowerCase().includes(searchField.toLowerCase())
+            respo.email.toLowerCase().includes(searchField.toLowerCase())
         ));
-                                    
+        useEffect(() => {
+            axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/users/listuser`)
+                    .then((res) => {
+                        setListeRespo(res.data);
+                    });
+          }, [showAdd]);                          
         return (
             <div className="container">
                 <h1 style={{textAlign:"center"}}><MdGroups/> Les responsables de maintenance :</h1>
@@ -63,8 +47,7 @@ export default function Home(props){
                              Identifiant</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
-                        <th scope="col">Service</th>
-                        <th scope="col">Nombre d'Anomalie</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Supprimer</th>
                         
                         </tr>
@@ -75,11 +58,10 @@ export default function Home(props){
                                             
                         return(<tr class="table-info">
                             {console.log(respo)}
-                            <th scope="row"><a href='#' onClick={rowEventslist}>{respo.Identifiant}</a></th>
-                            <td>{respo.nom}</td>
-                            <td>{respo.prenom}</td>
-                            <td>{respo.service}</td>
-                            <td>{respo.nbrAnomali}</td>
+                            <th scope="row"><a href='#' onClick={rowEventslist}>{respo.username}</a></th>
+                            <td>{respo.first_name}</td>
+                            <td>{respo.last_name}</td>
+                            <td>{respo.email}</td>
                             <td style={{color:"red"}}><MdDeleteForever/></td>
                         </tr>);
                         })
