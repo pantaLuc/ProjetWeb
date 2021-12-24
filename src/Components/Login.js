@@ -1,10 +1,11 @@
-import React, { useState } from 'react'//useEffect
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { BsFileEarmarkLock } from 'react-icons/bs';
 import PropTypes from 'prop-types';
-import Home from './Home';
+import { useNavigate } from "react-router-dom";
+import useToken from '../useToken';
 
-async function loginUser(credentials,props) {
+async function loginUser(credentials) {
     
     return axios({
         method: "POST",
@@ -12,50 +13,46 @@ async function loginUser(credentials,props) {
         data: JSON.stringify(credentials),
         headers: {
             'Content-Type': 'application/json'
-            
         }
     }).then(res => {
         return (res.data.token)
     });
 }
 
-   
-export default function Login({ setToken },props) {
-    const [roleuser, setroleuser ] = useState('guest');
-
-    const [token, settoken] = useState("");
+const Login = () => {
+    const navigate = useNavigate();
+    const [userRole, setUserRole ] = useState('guest');
+    const { token, setToken } = useToken();
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
-   
+    
+
     const handleSubmitLogin = async (values) => {
         values.preventDefault();
         const token = await loginUser({
             username: username,
             password: password
-          },props);
+          });
           setToken(token);
-       /* const login = {
-            username: username,
-            password: password
-        };
-        console.log(login);
-        await axios({
-            method: "POST",
-            url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/login/`,
-            data: JSON.stringify(login),
+          axios({
+            method: "GET",
+            url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/user/`,
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-                
+                'Content-Type': 'application/json',
+                'Authorization':`Token ${token}`
             }
         }).then(res => {
-            console .log(res)
-            settoken(JSON.stringify(res.data.token));
-            localStorage.setItem('token', JSON.stringify(res.data.token));
-            setusername(""); setpassword("");
+            setUserRole(res.data.role);
+            localStorage.setItem('userRole',res.data.role)
         });
-        await console.log("tokon="+localStorage.getItem('token'))*/
     };
-
+    useEffect(() => {
+        console.log(userRole)
+    if (token || localStorage.getItem('token')) {
+        {localStorage.getItem('userRole') === 'admin' && navigate("/HomeAdmin")}
+        {localStorage.getItem('userRole') === 'responsable' && navigate("/HomeRespo")}
+    }
+      }, [localStorage.getItem('token')]);
     return (
         <div className="container">
                   <h1 style={{textAlign:"center"}}><BsFileEarmarkLock/> AUTHENTIFIEZ-VOUS</h1>
@@ -75,6 +72,9 @@ export default function Login({ setToken },props) {
     </div>
     )
 }
+
 Login.propTypes = {
     setToken: PropTypes.func.isRequired
-  }
+}
+
+export default Login;
