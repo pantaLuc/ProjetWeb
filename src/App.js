@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react'
+import React , { useState, useEffect}from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
@@ -11,14 +11,13 @@ import Service from './Components/Service';
 import Localisation from './Components/Localisation';
 import Login from './Components/Login';
 
-const App = () => (
+const App = () =>(
   <div className="App">
-    <Header />
     <Routes>
       <Route path="/Login"  element={<Login />}/>
       <Route path="/HomeAdmin"  element={<HomeAdmin />}/>
       <Route path="/HomeRespo"  element={<HomeResponsable />}/>
-      <Route path="/HomeGuest"  element={<HomeGuest />}/>
+      <Route path="/"  element={<HomeGuest />}/>
       <Route path="/Service" element={<Service />} />
       <Route path="/Localisation" element={<Localisation />} />
       <Route path="/SignalerAnomalie" element={<SignalerAnomalie />} />

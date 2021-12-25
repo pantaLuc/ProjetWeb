@@ -4,6 +4,7 @@ import { BsFileEarmarkLock } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
 import useToken from '../useToken';
+import Header from './Header';
 
 async function loginUser(credentials) {
     
@@ -43,18 +44,22 @@ const Login = () => {
             }
         }).then(res => {
             setUserRole(res.data.role);
-            localStorage.setItem('userRole',res.data.role)
+            localStorage.setItem('role',res.data.role)
+            localStorage.setItem('username',res.data.username)
+            {userRole==='admin'? navigate("/HomeAdmin"): navigate("/HomeRespo")}
         });
     };
     useEffect(() => {
         console.log(userRole)
     if (token || localStorage.getItem('token')) {
-        {localStorage.getItem('userRole') === 'admin' && navigate("/HomeAdmin")}
-        {localStorage.getItem('userRole') === 'responsable' && navigate("/HomeRespo")}
+        {userRole === 'admin' && navigate("/HomeAdmin")}
+        {userRole === 'responsable' && navigate("/HomeRespo")}
     }
       }, [localStorage.getItem('token')]);
     return (
-        <div className="container">
+        <div>
+                <Header/>
+            <div className='container'>
                   <h1 style={{textAlign:"center"}}><BsFileEarmarkLock/> AUTHENTIFIEZ-VOUS</h1>
             <div style={{width:'40%'}}  className="container alert alert-dismissible alert-secondary">
             <form onSubmit={handleSubmitLogin}>
@@ -69,6 +74,7 @@ const Login = () => {
             <button className="btn btn-dark" type="submit" >Se Connecter</button>
         </form>
             </div>      
+    </div>
     </div>
     )
 }

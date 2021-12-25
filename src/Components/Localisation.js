@@ -4,10 +4,21 @@ import { MdDeleteForever ,MdAddLocationAlt} from 'react-icons/md';
 import AddLocalisation from './AddLocalisation';
 import Search from './Search';
 import axios from 'axios'
+import Header from './Header';
+import Delete from './Delete';
 export default function Localisation(props){
+    const [localid, setlocalid] = useState()
     const [showAddLocal, setshowAddLocal] = useState(false);
     const handleCloseAddLocal = () => setshowAddLocal(false);
     const rowEventsAddLocal = () => { setshowAddLocal(true); }
+
+    const rowEventsDelete = (e) => { 
+        setlocalid(e);
+        setshowDeleteLocal(true); }
+    const [showDeleteLocal, setshowDeleteLocal] = useState(false);
+    const handleCloseDeleteLocal = () => {
+        setlocalid();
+        setshowDeleteLocal(false);}
 
     const [searchField, setsearchField] = useState('');
     const [ListeLocalisation, setListeLocalisation] = useState([]);
@@ -25,6 +36,8 @@ export default function Localisation(props){
                 });
       }, [handleCloseAddLocal]);
         return (
+            <div>
+                <Header />
             <div className='container'>
                 <h1 style={{textAlign:"center"}}><BiCurrentLocation/> Les Localisations :</h1>
 
@@ -45,7 +58,7 @@ export default function Localisation(props){
                                 <strong className="me-auto">{local.libelle}</strong>
                                 <small>{local.code}</small>
                                 <button type="button" class="btn ms-2 mb-1">
-                                    <a href="#" class="card-link" style={{color:"red"}}> <MdDeleteForever/></a>
+                                    <a href="#" class="card-link" style={{color:"red"}} onClick={() => rowEventsDelete(local.id)}> <MdDeleteForever/></a>
                                 </button>
                             </div>
                             <div className="toast-body">
@@ -66,7 +79,9 @@ export default function Localisation(props){
                 }
                 </div>
             <AddLocalisation rowEventsAddLocal={showAddLocal} handleClose={handleCloseAddLocal} />
+            <Delete rowEventsDelete={showDeleteLocal} handleClose={handleCloseDeleteLocal} id={localid} type='localisation'/>
 
+            </div>
             </div>
         )
 }

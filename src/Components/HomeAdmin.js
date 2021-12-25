@@ -6,10 +6,13 @@ import Search from './Search';
 import { MdPersonAdd } from 'react-icons/md';
 import AddUser from './AddUser'
 import axios from 'axios'
+import Header from './Header';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Home(props){
-    
+    const navigate = useNavigate();
+
     const [showAdd, setShowAdd] = useState(false);
     const handleCloseAdd = () => setShowAdd(false);
     const rowEventsAdd = () => { setShowAdd(true); }
@@ -32,10 +35,15 @@ export default function Home(props){
             axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/users/listuser`)
                     .then((res) => {
                         setListeRespo(res.data);
-                    });
-          }, [showAdd]);                          
+            });
+            {localStorage.getItem('token')? 
+            (localStorage.getItem('role') === 'responsable'&& navigate("/HomeRespo"))
+            :navigate("/")}
+          }, [showAdd,localStorage.getItem('token')]);                          
         return (
-            <div className="container">
+            <div>
+                <Header/>
+            <div className='container'>
                 <h1 style={{textAlign:"center"}}><MdGroups/> Les responsables de maintenance :</h1>
                 <Search placeholder='Chercher par : Identifiant / Nom / Prénom / Service' handleChange={(e)=>setsearchField(e.target.value)}/>
                 <table class="table table-hover" >
@@ -73,6 +81,7 @@ export default function Home(props){
                     <AddUser rowEventsAdd={showAdd} handleClose={handleCloseAdd} />
                     <RessourcesResp rowEventslist={Showlistressources} handleClose={handleCloselist}/>
 
+            </div>
             </div>
         )
 }

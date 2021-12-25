@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { GoLocation } from "react-icons/go";
 import { FcSearch } from "react-icons/fc";
 import ListeRessourceGuest from './ListeRessourceGuest';
+import Header from './Header';
 
 export default function ScanAnomalie(props) {
     const [show, setShow] = useState(false);

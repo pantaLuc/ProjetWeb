@@ -1,5 +1,5 @@
 
-import React ,{useState,useRef} from 'react'
+import React , {useState, useRef, useEffect} from 'react'
 import { MdGroups } from 'react-icons/md';
 import { MdDeleteForever } from 'react-icons/md';
 import RessourcesResp from './RessourcesResp';
@@ -12,10 +12,13 @@ import Delete from './Delete';
 import UpdateRessource from './UpdateRessource';
 import UpdateAnomalies from './UpdateAnomalies';
 import PrintComponent from './PrintComponent';
-
-
-
+import { useNavigate } from "react-router-dom";
+import Header from './Header';
+import axios from 'axios'
 export default function Homeressourcensable(props){
+    const navigate = useNavigate();
+    const [userRole, setUserRole ] = useState('guest');
+
     const componentRef = useRef();
     const [showAddRessource, setshowAddRessource] = useState(false);
     const handleCloseAddRessource = () => setshowAddRessource(false);
@@ -62,8 +65,18 @@ export default function Homeressourcensable(props){
             ||
         ressource.Nom.toLowerCase().includes(searchField.toLowerCase())
     ));
+    useEffect(() => {
+        console.log(userRole)
+        
+        {localStorage.getItem('token')? 
+        (localStorage.getItem('role') === 'admin'&& navigate("/HomeAdmin"))
+        :navigate("/")}
+          
+    }, [localStorage.getItem('token')])
         return (
-            <div className="container">
+            <div>
+                <Header/>
+            <div className='container'>
                 <h1 style={{textAlign:"center"}}> <BsListStars/> Mes ressources :</h1>
                 <Search placeholder='Chercher par Nom/Code de la ressource' handleChange={(e)=>setsearchField(e.target.value)}/>
                 <table class="table table-hover">
@@ -105,6 +118,7 @@ export default function Homeressourcensable(props){
                     <Delete rowEventsDelete={showDeleteRessource} handleClose={handleCloseDeleteRessource}/>
                     <UpdateRessource rowEventsUpdate={showUpdateRessource} handleClose={handleCloseUpdateRessource}/>
                     <UpdateAnomalies rowEventsUpdateAnomalie={showUpdateAnomalie} handleClose={handleCloseUpdateAnamalie}/>
+            </div>
             </div>
         )
 }

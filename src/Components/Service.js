@@ -1,45 +1,41 @@
-import React ,{useState} from 'react';
+import React ,{useState, useEffect} from 'react';
 import { MdMiscellaneousServices,MdDeleteForever } from 'react-icons/md';
 import { AiOutlineAppstoreAdd } from 'react-icons/ai';
 import Search from './Search';
 import AddService from './AddService';
+import Header from './Header';
+import axios from'axios'
+import Delete from './Delete';
 export default function Service(props){
+    const [serviceid, setserviceid] = useState()
     const [showAddService, setshowAddService] = useState(false);
     const handleCloseAddService = () => setshowAddService(false);
     const rowEventsAddService = () => { setshowAddService(true); }
 
+    const rowEventsDelete = (e) => { 
+        setserviceid(e);
+        setshowDeleteService(true); }
+    const [showDeleteService, setshowDeleteService] = useState(false);
+    const handleCloseDeleteService = () => {
+        setserviceid();
+        setshowDeleteService(false);}
+
     const [searchField, setsearchField] = useState('');
-    const [ListeService, setListeService] = useState(
-        [{
-            nom:'Service1',
-            date:'19/12/2021',
-            description:'55description du service 1'
-        },
-        {
-            nom:'Service2',
-            date:'09/12/2021',
-            description:'description du service 2'
-        },
-        {
-            nom:'Service3',
-            date:'10/12/2021',
-            description:'description du service 3'
-        },
-        {
-            nom:'Service4',
-            date:'25/12/2021',
-            description:'description du service 4'
-        },
-       
-    ]);
+    const [ListeService, setListeService] = useState([]);
     const filtreedService=ListeService.filter(service=>(
-        service.nom.toLowerCase().includes(searchField.toLowerCase())
+        service.nomServ.toLowerCase().includes(searchField.toLowerCase())
             ||
-        service.date.toLowerCase().includes(searchField.toLowerCase())
-            ||
-            service.description.toLowerCase().includes(searchField.toLowerCase())
+        service.descriptionService.toLowerCase().includes(searchField.toLowerCase())
     ));
+    useEffect(() => {
+        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listServices/`)
+                .then((res) => {
+                    setListeService(res.data);
+                });
+      }, [handleCloseAddService]);
         return (
+            <div>
+                <Header/>
             <div className='container'>
                 <h1 style={{textAlign:"center"}}><MdMiscellaneousServices/> Les Services :</h1>
                 <div className='row'>
@@ -56,14 +52,14 @@ export default function Service(props){
                         return(
                         <div className="col-sm-3 toast show" role="alert" aria-live="assertive" aria-atomic="true">
                             <div className="toast-header">
-                                <strong className="me-auto"> {service.nom}</strong>
+                                <strong className="me-auto"> {service.nomServ}</strong>
                                 <small>{service.date}</small>
                                 <button type="button" class="btn ms-2 mb-1">
-                                    <a href="#" class="card-link" style={{color:"red"}}> <MdDeleteForever/></a>
+                                    <a href="#" class="card-link" style={{color:"red"}} onClick={() => rowEventsDelete(service.id)}> <MdDeleteForever/></a>
                                 </button>
                             </div>
                             <div className="toast-body">
-                                {service.description}
+                                {service.descriptionService}
                             </div>
                         </div>);
                 })
@@ -79,7 +75,10 @@ export default function Service(props){
                 </div>
                 }
                 </div>
-                <AddService rowEventsAddService={showAddService} handleClose={handleCloseAddService} />
+                <AddService rowEventsAddService={showAddService} handleClose={handleCloseAddService} service={ListeService} />
+                <Delete rowEventsDelete={showDeleteService} handleClose={handleCloseDeleteService} id={serviceid} type='service'/>
+
+            </div>
             </div>
         )
 }

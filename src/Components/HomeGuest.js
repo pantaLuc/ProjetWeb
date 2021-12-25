@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { AiFillAlert } from 'react-icons/ai';
 import ScanAnomalie from './ScanAnomalie'
 import FormAnomalie from './FormAnomalie'
+import Header from './Header';
 
 export default function HomeGuest(props){
     const [isScan, setisScan] = useState(true);
@@ -15,7 +16,9 @@ export default function HomeGuest(props){
         setisForm(true);
       })
         return (
-            <div className='container' >
+            <div>
+                <Header/>
+            <div className='container'>
                 <h1 style={{textAlign:"center"}}><AiFillAlert/> Signaler  une anomalie :</h1>
                 <div style={{width:'40%'}} className="container">
                     <div className='row'>
@@ -44,6 +47,7 @@ export default function HomeGuest(props){
                 </div>
                 
                   
+            </div>
             </div>
         )
 }
