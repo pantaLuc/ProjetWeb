@@ -68,7 +68,7 @@ export default function Header(props) {
                 <form className="d-flex">
                 {localStorage.getItem('token') ?
                     <button className="btn btn-secondary my-2 my-sm-0" type="submit"
-                            onClick={() => { localStorage.removeItem('token') ;localStorage.removeItem('role');localStorage.removeItem('username'); }}>
+                            onClick={() => { localStorage.removeItem('token') ;localStorage.removeItem('role');localStorage.removeItem('username');localStorage.removeItem('id'); }}>
                                 <AiOutlineLogout/>Déconnexion
                     </button>:
                     <NavLink className="btn btn-secondary my-2 my-sm-0" to="/Login"><AiOutlineLogin/> Connexion</NavLink>

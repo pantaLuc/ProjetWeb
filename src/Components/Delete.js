@@ -5,6 +5,8 @@ import axios from'axios'
 export default function Delete(props) {
     const [localisation, setlocalisation] = useState({});
     const [service, setservice] = useState({});
+    const [ressource, setressource] = useState({});
+
     const deleteObject = () =>{
         
         {props.id && props.type === 'localisation' && 
@@ -19,8 +21,15 @@ export default function Delete(props) {
             props.handleClose();
         });
         }
+        {props.id && props.type === 'ressource' && 
+        axios.delete(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/ressource/${props.id}`)
+        .then((res) => {
+            props.handleClose();
+        });
+        }
     }
     useEffect(() => {
+        console.log(props.id)
         {props.id && props.type === 'localisation' && 
         axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/localisation/${props.id}`)
         .then((res) => {
@@ -33,6 +42,12 @@ export default function Delete(props) {
             setservice(res.data);
         });
         }
+        {props.id && props.type === 'ressource' && 
+        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/ressource/${props.id}`)
+        .then((res) => {
+            setressource(res.data);
+        });
+        }
 
     }, [props.type,props.id])
      
@@ -43,6 +58,7 @@ export default function Delete(props) {
                     Supprimer
                     {props.type === 'localisation' && ' la localisation'}
                     {props.type === 'service' && ' le service'}
+                    {props.type === 'ressource' && ' la ressource'}
                     </Modal.Title>
             </Modal.Header>
             <form onSubmit={deleteObject}>
@@ -51,6 +67,7 @@ export default function Delete(props) {
                 <p>Voulez vous vraiment supprimer <strong>'
                     {props.type === 'localisation' && localisation.libelle}
                     {props.type === 'service' && service.nomServ}
+                    {props.type === 'ressource' && ressource.nomRessource}
                     '</strong> ?</p>
             </div>
             </Modal.Body>

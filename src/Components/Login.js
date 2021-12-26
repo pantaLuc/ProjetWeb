@@ -46,6 +46,7 @@ const Login = () => {
             setUserRole(res.data.role);
             localStorage.setItem('role',res.data.role)
             localStorage.setItem('username',res.data.username)
+            localStorage.setItem('id',res.data.id)
             {userRole==='admin'? navigate("/HomeAdmin"): navigate("/HomeRespo")}
         });
     };

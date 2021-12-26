@@ -10,6 +10,7 @@ import HomeResponsable from './Components/HomeResponsable';
 import Service from './Components/Service';
 import Localisation from './Components/Localisation';
 import Login from './Components/Login';
+import Ressource from './Components/Ressource';
 
 const App = () =>(
   <div className="App">
@@ -20,6 +21,7 @@ const App = () =>(
       <Route path="/"  element={<HomeGuest />}/>
       <Route path="/Service" element={<Service />} />
       <Route path="/Localisation" element={<Localisation />} />
+      <Route path="/Ressource" element={<Ressource />} />
       <Route path="/SignalerAnomalie" element={<SignalerAnomalie />} />
     </Routes>
     <Footer />
