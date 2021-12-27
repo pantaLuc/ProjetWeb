@@ -5,7 +5,6 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import HomeAdmin from './Components/HomeAdmin';
 import HomeGuest from './Components/HomeGuest';
-import SignalerAnomalie from './Components/SignalerAnomalie';
 import HomeResponsable from './Components/HomeResponsable';
 import Service from './Components/Service';
 import Localisation from './Components/Localisation';
@@ -21,8 +20,7 @@ const App = () =>(
       <Route path="/"  element={<HomeGuest />}/>
       <Route path="/Service" element={<Service />} />
       <Route path="/Localisation" element={<Localisation />} />
-      <Route path="/Ressource" element={<Ressource />} />
-      <Route path="/SignalerAnomalie" element={<SignalerAnomalie />} />
+      <Route path="/Ressource/:nom/:id" element={<Ressource/>} />
     </Routes>
     <Footer />
   </div>

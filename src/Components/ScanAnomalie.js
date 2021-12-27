@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { GoLocation } from "react-icons/go";
 import { FcSearch } from "react-icons/fc";
-import ListeRessourceGuest from './ListeRessourceGuest';
+import SignalerAnomalie from './SignalerAnomalie';
 import Header from './Header';
 
 export default function ScanAnomalie(props) {
@@ -22,7 +22,7 @@ export default function ScanAnomalie(props) {
                 </div>
                 <button onClick={rowEvents} type="button" className="container btn btn-lg btn-outline-info"><FcSearch/> Chercher</button>
                 </form>
-                <ListeRessourceGuest rowEvents={show} handleClose={handleClose} />
+                <SignalerAnomalie rowEvents={show} handleClose={handleClose} />
             </div>
         )
 }
