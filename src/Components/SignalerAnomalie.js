@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function SignalerAnomalie(props) {
   const [nom, setNom] = useState();
   const [description, setDescription] = useState();
+  const [idAnomalie, setidAnomalie] = useState()
   const handleSubmit = (values) => {
     values.preventDefault();
     const anomalie = {
@@ -21,26 +22,31 @@ export default function SignalerAnomalie(props) {
           'Content-Type': 'application/json;charset=utf-8'
       }
     }).then(res => {
-      console.log(res.data.id)
-      const anomalieAsignaler={
-        localisation: props.idLocalisation,
-        ressource: props.idRessource,
-        anomalie: res.data.id,
-        etat: "present",
-        nombreSignalement: 1
-      };
-        axios({
-          method: "POST",
-          url: "https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/signalerAnomalie/",
-          data: JSON.stringify(anomalieAsignaler),
-          headers: {
-              'Content-Type': 'application/json;charset=utf-8'
-          }
-        }).then(res => {
-          console.log(res.data.id);
-          props.handleClose();
-          });
+      setidAnomalie(res.data.id);
+      signalerAnom(res.data.id);
+     
       });
+  }
+  const signalerAnom = (e) =>{
+    const anomalieAsignaler={
+      localisation: props.idLocalisation,
+      ressource:props.idRessource,
+      anomalie:e,
+      etat: "present",
+      nombreSignalement: 1
+    };
+    console.log( JSON.stringify(anomalieAsignaler))
+      axios({
+        method: "POST",
+        url: "https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/signalerAnomalie/",
+        data: JSON.stringify(anomalieAsignaler),
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        }
+      }).then(res => {
+        console.log(res.data.id);
+        props.handleClose();
+        });
   }
   return (
       <div>

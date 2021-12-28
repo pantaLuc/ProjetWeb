@@ -8,9 +8,10 @@ import SignalerAnomalie from './SignalerAnomalie';
 import CardAnomalie from './CardAnomalie';
 
 export default function Ressource(props) {
-    const {id, nom} = useParams();
+    const {id, nom, localisation} = useParams();
     const [listeAnomalie, setListeAnomalie] = useState([]);
     const [show, setShow] = useState(false);
+    const [showTest, setShowTest] = useState(true);
     const handleClose = () => setShow(false);
     const rowEvents = () => { setShow(true); }
     const [ressource, setressource] = useState(
@@ -23,7 +24,7 @@ export default function Ressource(props) {
         service: ""
         }
     )
-    const [localisation, setlocalisation] = useState(
+    const [localisationR, setlocalisationR] = useState(
         {id: "",
         code: " ",
         libelle: "",
@@ -31,28 +32,27 @@ export default function Ressource(props) {
         }
     )
     useEffect(() => {
+        {ressource.id === "" && 
         axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/ressource/${id}`)
         .then((res) => {
-            console.log(res.data)
-            setressource(res.data)
-          })
-        .catch(error => {
-            console.log(error.response)
-        });
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/localisation/${id}`)
-        .then((res) => {
-            console.log(res.data)
-            setlocalisation(res.data)
-            axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listeAnomalieLocalisation/${res.data.id}`)
-            .then((res) => {
-            console.log(res.data)
-            setListeAnomalie(res.data)
+            setressource(res.data);
           });
-          });
-          
+        }
         
-    }, [id,nom,handleClose])
-
+        {localisationR.id ==="" &&
+            axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/localisation/${localisation}`)
+            .then((res) => {
+                setlocalisationR(res.data)
+            });
+        }
+        { ressource.id !="" &&
+        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listeAnomalieParRessource/${ressource.id}`)
+        .then((res) => {
+        setListeAnomalie(res.data)});}
+        
+        
+    }, [show,ressource.id])
+    
     return (
         <div >
             <Header/>
@@ -61,20 +61,22 @@ export default function Ressource(props) {
            <div className="card mb-3">
             <h3 className="card-header">Le nom de la ressource : {nom}</h3>
             <div className="card-body">
-                <h5 className="card-title">{localisation.libelle} : {localisation.code}</h5>
+                <h5 className="card-title">{localisationR.libelle} : {localisationR.code}</h5>
                 <h6 className="card-title">{ressource.descriptionRes}</h6>
             </div>
             <div className="card-body">
-                <QRCode value={`http://localhost:3000/Ressource/${nom}/${id}`} />
+                <QRCode value={`http://localhost:3000/Ressource/${nom}/${localisation}/${id}`} />
             </div>
             <div className="card-body">
                 <p className="card-text">Liste des anomalies</p>
             </div>
+            
+
             <ul className="list-group list-group-flush">
                 {listeAnomalie.length > 0
                         ? listeAnomalie.map((anomalie) => {
-                             if(anomalie.ressource === ressource.id)
-                             return <CardAnomalie anomalie={anomalie}/>
+                             return <> 
+                             <CardAnomalie anomalie={anomalie}/></>
                             })
                             : <li className="list-group-item">Pas d'anomalie pour l'instant</li>
                         }
@@ -89,7 +91,7 @@ export default function Ressource(props) {
             </div>
             </div>
         </div>
-        <SignalerAnomalie rowEvents={show} handleClose={handleClose} idLocalisation={localisation.id} idRessource={ressource.id}/>
+        <SignalerAnomalie rowEvents={show} handleClose={handleClose} idLocalisation={localisationR.id} idRessource={ressource.id}/>
 
         </div>
     )  

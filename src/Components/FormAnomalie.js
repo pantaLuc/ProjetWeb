@@ -16,7 +16,7 @@ export default function FormAnomalie(props){
     const handleSubmit = () => {
         console.log(ressource.nomRessource);
         console.log(ressource.id);
-        navigate(`/Ressource/${ressource.nomRessource}/${ressource.id}`);
+        navigate(`/Ressource/${ressource.nomRessource}/${ressource.localisation}/${ressource.id}`);
     }
     useEffect(() => {
         
@@ -40,13 +40,13 @@ export default function FormAnomalie(props){
                             .then((res) => {
                                 console.log(res.data)
                                 setListeRessourceLocal(res.data);
-                                setRessource(res.data[0]);
+                                {!(idRessource) && setRessource(res.data[0])}
                 })
             : axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listRessource/`)
                             .then((res) => {
                                 console.log(res.data)
                                 setListeRessourceLocal(res.data);
-                               setRessource(res.data[0]);
+                                {!(idRessource) && setRessource(res.data[0])}
                 })
         }
         

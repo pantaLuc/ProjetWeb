@@ -20,7 +20,7 @@ export default function HomeGuest(props){
                 <Header/>
             <div className='container'>
                 <h1 style={{textAlign:"center"}}><AiFillAlert/> Signaler  une anomalie :</h1>
-                <div style={{width:'40%'}} className="container">
+                <div style={{width:'70%'}} className="container">
                     <div className='row'>
                     <button 
                         type="button" 
@@ -41,7 +41,7 @@ export default function HomeGuest(props){
                     
                 </div> 
                 <br/>
-                <div style={{width:'40%'}}  className="container alert alert-dismissible alert-secondary">
+                <div style={{width:'70%'}}  className="container alert alert-dismissible alert-secondary">
                     {isScan && <ScanAnomalie/>}
                     {isForm && <FormAnomalie/>}
                 </div>
