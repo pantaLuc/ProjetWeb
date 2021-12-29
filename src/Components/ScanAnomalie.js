@@ -25,12 +25,13 @@ export default function ScanAnomalie(props) {
                 <div class="form-group">
                     <label for="formFile" class="form-label mt-4">le QR code de la ressource :</label>
                     <input class="form-control" type="file" id="formFile"/>
-                  { /* <QrReader
+                  <QrReader
                         delay={300}
                         onError={handleError}
                         onScan={handleScan}
                         style={{ width: '100%' }}
-                        />*/}
+                        />
+                        <p>{result}</p>
                 </div>
                 <button onClick={rowEvents} type="button" className="container btn btn-lg btn-outline-info"><FcSearch/> Chercher</button>
                 </form>
