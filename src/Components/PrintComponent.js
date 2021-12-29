@@ -6,12 +6,11 @@ import RessourceQrCode from "./RessourceQrCode";
 import { MdOutlineQrCode2 } from 'react-icons/md';
 import { AiTwotonePrinter } from 'react-icons/ai';
 
-export default function PrintComponent() {
+export default function PrintComponent(props) {
   let componentRef = useRef();
 
   return (
       <div>
-        {/* button to trigger printing of target component */}
         <ReactToPrint
           trigger={() => <a><AiTwotonePrinter/><MdOutlineQrCode2/></a>}
           content={() => componentRef}
@@ -19,7 +18,7 @@ export default function PrintComponent() {
 
         {/* component to be printed */}
         <div style={{ display: "none" }}>
-            <RessourceQrCode ref={(el) => (componentRef = el)} />
+            <RessourceQrCode ref={(el) => (componentRef = el)} ressource={props.ressource}/>
         </div>
       </div>
   );

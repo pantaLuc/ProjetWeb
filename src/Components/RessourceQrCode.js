@@ -8,18 +8,18 @@ export default class RessourceQrCode extends Component {
         <div class="container card mb-3">
             <h3 class="card-header"><BiQrScan/> Flachez-moi</h3>
             <div class="card-body">
-                <h5 class="card-title">Ressource XXX</h5>
-                <h6 class="card-subtitle text-muted">http://www</h6>
+                <h5 class="card-title">Ressource : {this.props.ressource.nomRessource}</h5>
+                <h6 class="card-subtitle text-muted">{`http://localhost:3000/Ressource/${this.props.ressource.nomRessource}/${this.props.ressource.localisation}}/${this.props.ressource.id}`}</h6>
             </div>
             <div class="card-body">
-                <QRCode value="https://www.google.com" />
+                <QRCode value={`http://localhost:3000/Ressource/${this.props.ressource.nomRessource}/${this.props.ressource.localisation}}/${this.props.ressource.id}`} />
             </div>
             <div class="card-body">
-                <p class="card-text">Description de la ressource .</p>
+                <p class="card-text">{this.props.ressource.descriptionRes}</p>
             </div>
             
             <div class="card-footer text-muted">
-                21/12/2021
+            © COPYRIGHT 2021 - TOUS DROITS RÉSERVÉS
             </div>
         </div>
         )

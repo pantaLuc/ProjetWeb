@@ -3,11 +3,21 @@ import { GoLocation } from "react-icons/go";
 import { FcSearch } from "react-icons/fc";
 import SignalerAnomalie from './SignalerAnomalie';
 import Header from './Header';
+import QrReader from 'react-qr-reader'
 
 export default function ScanAnomalie(props) {
+    const [result, setResult] = useState("");
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const rowEvents = () => { setShow(true); }
+    const handleScan = (data) => {
+        if (data) {
+          setResult(data);
+        }
+      }
+    const handleError = (err) => {
+        console.error(err)
+      }
         return (
             <div>
                 <form>
@@ -15,10 +25,12 @@ export default function ScanAnomalie(props) {
                 <div class="form-group">
                     <label for="formFile" class="form-label mt-4">le QR code de la ressource :</label>
                     <input class="form-control" type="file" id="formFile"/>
-                </div>
-                <div class="form-group">
-                    <label for="LienRessource" class="form-label mt-4">Lien de la ressource :</label>
-                    <input class="form-control" type="text" id="LienRessource" placeholder='https://...'/>
+                  { /* <QrReader
+                        delay={300}
+                        onError={handleError}
+                        onScan={handleScan}
+                        style={{ width: '100%' }}
+                        />*/}
                 </div>
                 <button onClick={rowEvents} type="button" className="container btn btn-lg btn-outline-info"><FcSearch/> Chercher</button>
                 </form>

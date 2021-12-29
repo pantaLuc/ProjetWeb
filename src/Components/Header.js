@@ -9,7 +9,9 @@ import { BiUserPin } from "react-icons/bi";
 import { MdGroups } from "react-icons/md";
 import { BsFillPersonXFill } from "react-icons/bs";
 import { BsFillPersonCheckFill } from "react-icons/bs";
-import axios from 'axios'
+import axios from 'axios';
+import { BsListStars } from 'react-icons/bs';
+
 import { OverlayTrigger, Popover, Button  } from 'react-bootstrap';
 
 export default function Header(props) {
@@ -52,6 +54,11 @@ export default function Header(props) {
                     </Button>
                     }
                     </li>
+                {(localStorage.getItem('token') && userRole==='responsable') &&
+                    <><li className="nav-item">
+                        <NavLink className="nav-link active" to="/HomeRespo"><BsListStars/> Gestion des Ressources</NavLink>
+                    </li></>
+                }
                 {(localStorage.getItem('token') && userRole==='admin') &&
                     <><li className="nav-item">
                         <NavLink className="nav-link active" to="/HomeAdmin"><MdGroups/> Gestion des Responsables</NavLink>

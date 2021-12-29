@@ -15,10 +15,13 @@ import PrintComponent from './PrintComponent';
 import { useNavigate } from "react-router-dom";
 import Header from './Header';
 import axios from 'axios'
+import NbreAnomalie from './NbreAnomalie';
+import LocalisationRessource from './LocalisationRessource';
 
 export default function Homeressourcensable(props){
     const navigate = useNavigate();
     const [idRessource, setidRessource] = useState()
+    const [idRessourceupdate, setidRessourceupdate] = useState()
     const componentRef = useRef();
     const [showAddRessource, setshowAddRessource] = useState(false);
     const handleCloseAddRessource = () => setshowAddRessource(false);
@@ -37,8 +40,12 @@ export default function Homeressourcensable(props){
     const rowEventsUpdate = () => { setshowUpdateRessource(true); }
 
     const [showUpdateAnomalie, setshowUpdateAnomalie] = useState(false);
-    const handleCloseUpdateAnamalie = () => setshowUpdateAnomalie(false);
-    const rowEventsUpdateAnomalie = () => { setshowUpdateAnomalie(true); }
+    const handleCloseUpdateAnamalie = () => {
+        setidRessourceupdate();
+        setshowUpdateAnomalie(false);}
+    const rowEventsUpdateAnomalie = (e) => {
+        setidRessourceupdate(e); 
+        setshowUpdateAnomalie(true); }
 
     const [searchField, setsearchField] = useState('');
     const [ListeRessource, setListeRessource] = useState([]);
@@ -67,14 +74,14 @@ export default function Homeressourcensable(props){
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                        <th scope="col">
-                        <button type="button" className="btn btn-outline-success" onClick={rowEventsAddRessource}> <BiListPlus/>  </button>
+                            <th scope="col">
+                                <button type="button" className="btn btn-outline-success" onClick={rowEventsAddRessource}> <BiListPlus/>  </button>
                             </th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Nombre d'anomalies</th>
-                        <th scope="col" colSpan={2}>Modifer la ressource</th>
-                        
+                            <th scope="col">Nom</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Localisation</th>
+                            <th scope="col">Nombre d'anomalies</th>
+                            <th scope="col">Supprimer la ressource</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,12 +90,12 @@ export default function Homeressourcensable(props){
                                             
                         return(<tr class="table-info">
                             <th scope="row">
-                                <PrintComponent/>
+                                <PrintComponent ressource={ressource}/>
                             </th>
                             <td>{ressource.nomRessource}</td>
                             <td>{ressource.descriptionRes}</td>
-                            <td ><a href='#' class="badge bg-info rounded-pill" onClick={rowEventsUpdateAnomalie}>1</a></td>
-                            <td style={{color:"green"}}onClick={rowEventsUpdate}><MdOutlineModeEditOutline/></td>
+                            <td><LocalisationRessource idLocalisationA={ressource.localisation}/></td>
+                            <td ><a href='#' class="badge bg-info rounded-pill" onClick={() => rowEventsUpdateAnomalie(ressource.id)} ><NbreAnomalie idRessourceA={ressource.id}/></a></td>
                             <td style={{color:"red"}} onClick={() => rowEventsDelete(ressource.id)} ><MdDeleteForever/></td>
                         </tr>);
                         })
@@ -100,7 +107,7 @@ export default function Homeressourcensable(props){
                     <AddRessources ref={componentRef} rowEventsAddRessource={showAddRessource} handleClose={handleCloseAddRessource} />
                     <Delete rowEventsDelete={showDeleteRessource} handleClose={handleCloseDeleteRessource} type='ressource'id={idRessource}/>
                     <UpdateRessource rowEventsUpdate={showUpdateRessource} handleClose={handleCloseUpdateRessource}/>
-                    <UpdateAnomalies rowEventsUpdateAnomalie={showUpdateAnomalie} handleClose={handleCloseUpdateAnamalie}/>
+                    <UpdateAnomalies rowEventsUpdateAnomalie={showUpdateAnomalie} handleClose={handleCloseUpdateAnamalie} id={idRessourceupdate}/>
             </div>
             </div>
         )
