@@ -65,7 +65,7 @@ export default function Ressource(props) {
                 <h6 className="card-title">{ressource.descriptionRes}</h6>
             </div>
             <div className="card-body">
-                <QRCode value={`http://localhost:3000/Ressource/${nom}/${localisation}/${id}`} />
+                <QRCode value={`http://projet-web-two.vercel.app/Ressource/${nom}/${localisation}/${id}`} />
             </div>
             <div className="card-body">
                 <p className="card-text">Liste des anomalies</p>
