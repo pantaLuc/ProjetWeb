@@ -3,6 +3,7 @@ import { BiQrScan } from 'react-icons/bi';
 import QRCode from "react-qr-code";
 
 export default class RessourceQrCode extends Component {
+    
     render() {
         return (
         <div class="container card mb-3">
@@ -13,11 +14,7 @@ export default class RessourceQrCode extends Component {
             </div>
             <div class="card-body">
                 <QRCode 
-                
-                value={`http://projet-web-two.vercel.app/Ressource/
-                ${this.props.ressource.nomRessource}/
-                ${this.props.ressource.localisation}/
-                ${this.props.ressource.id}`} />
+                value={`http://projet-web-two.vercel.app/Ressource/${this.props.ressource.nomRessource}/${this.props.ressource.localisation}/${this.props.ressource.id}`} />
             </div>
             <div class="card-body">
                 <p class="card-text">{this.props.ressource.descriptionRes}</p>
