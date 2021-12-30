@@ -26,8 +26,8 @@ export default function ScanAnomalie(props) {
             <div>
                 <form>
                 <legend><GoLocation color='#ffffff'/> Localiser la ressource</legend>
-                <div class="form-group">
-                    <label for="formFile" class="form-label mt-4">Scannerle QR code de la ressource :</label>
+                <div className="form-group">
+                    <label for="formFile" className="form-label mt-4">Scannerle QR code de la ressource :</label>
                   <QrReader
                         delay={300}
                         onError={handleError}

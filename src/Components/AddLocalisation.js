@@ -34,19 +34,19 @@ export default function AddLocalisation(props) {
                 <form onSubmit={handleSubmit}>
                 <Modal.Body>
                     <div>
-                        <div class="form-group">
-                                <label for="code" class="form-label mt-2">Code de la localisation :</label>
-                                <input type="text" class="form-control" id="code"  placeholder="Exemple: U2.2.40"
+                        <div className="form-group">
+                                <label for="code" className="form-label mt-2">Code de la localisation :</label>
+                                <input type="text" className="form-control" id="code"  placeholder="Exemple: U2.2.40"
                                         onChange={(event) => { setcode(event.target.value) }}required/>
                         </div>
-                        <div class="form-group">
-                                <label for="libelle" class="form-label mt-2">Libelle :</label>
-                                <input type="text" class="form-control" id="libelle"  placeholder="Exemple: Salle de Co-Working"
+                        <div className="form-group">
+                                <label for="libelle" className="form-label mt-2">Libelle :</label>
+                                <input type="text" className="form-control" id="libelle"  placeholder="Exemple: Salle de Co-Working"
                                     onChange={(event) => { setlibelle(event.target.value) }}required/>
                         </div>
-                        <div class="form-group">
-                            <label for="descripton" class="form-label">Description du Lieu :</label>
-                            <textarea class="form-control" id="descripton" rows="3"placeholder='Une petite description de la localisation..'
+                        <div className="form-group">
+                            <label for="descripton" className="form-label">Description du Lieu :</label>
+                            <textarea className="form-control" id="descripton" rows="3"placeholder='Une petite description de la localisation..'
                                 onChange={(event) => { setdescription(event.target.value) }}></textarea>
                         </div>
                     </div>

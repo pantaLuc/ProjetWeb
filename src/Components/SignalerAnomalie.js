@@ -57,9 +57,9 @@ export default function SignalerAnomalie(props) {
                 <form onSubmit={handleSubmit}>
                 <Modal.Body>
                   <div>
-                    <div class="form-group">
-                      <label for="nom" class="form-label">Nom :</label>
-                      <input type="text" class="form-control" id="nom"  placeholder="Nom"onChange={(event) => { setNom(event.target.value) }}/>
+                    <div className="form-group">
+                      <label for="nom" className="form-label">Nom :</label>
+                      <input type="text" className="form-control" id="nom"  placeholder="Nom"onChange={(event) => { setNom(event.target.value) }}/>
                     </div>
                     <div className="form-group">
                             <label for="exampleTextarea" className="form-label">Description :</label>

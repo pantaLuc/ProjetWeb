@@ -6,7 +6,10 @@ import Search from './Search';
 import axios from 'axios'
 import Header from './Header';
 import Delete from './Delete';
+import { useNavigate } from "react-router-dom";
+
 export default function Localisation(props){
+    const navigate = useNavigate();
     const [localid, setlocalid] = useState()
     const [showAddLocal, setshowAddLocal] = useState(false);
     const handleCloseAddLocal = () => setshowAddLocal(false);
@@ -30,6 +33,9 @@ export default function Localisation(props){
             local.description.toLowerCase().includes(searchField.toLowerCase())
     ));
     useEffect(() => {
+        {localStorage.getItem('token')? 
+        (localStorage.getItem('role') != 'admin'&& navigate("/"))
+        :navigate("/")}
         axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/lisLocalisation`)
                 .then((res) => {
                     setListeLocalisation(res.data);
@@ -57,8 +63,8 @@ export default function Localisation(props){
                             <div className="toast-header">
                                 <strong className="me-auto">{local.libelle}</strong>
                                 <small>{local.code}</small>
-                                <button type="button" class="btn ms-2 mb-1">
-                                    <a href="#" class="card-link" style={{color:"red"}} onClick={() => rowEventsDelete(local.id)}> <MdDeleteForever/></a>
+                                <button type="button" className="btn ms-2 mb-1">
+                                    <a href="#" className="card-link" style={{color:"red"}} onClick={() => rowEventsDelete(local.id)}> <MdDeleteForever/></a>
                                 </button>
                             </div>
                             <div className="toast-body">

@@ -1,11 +1,8 @@
 
 import React , {useState, useRef, useEffect} from 'react'
-import { MdGroups } from 'react-icons/md';
 import { MdDeleteForever } from 'react-icons/md';
-import RessourcesResp from './RessourcesResp';
 import Search from './Search';
 import { BiListPlus } from 'react-icons/bi';
-import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { BsListStars } from 'react-icons/bs';
 import AddRessources from './AddRessources';
 import Delete from './Delete';
@@ -71,7 +68,7 @@ export default function Homeressourcensable(props){
             <div className='container'>
                 <h1 style={{textAlign:"center"}}> <BsListStars/> Mes ressources :</h1>
                 <Search placeholder='Chercher par Nom / Description de la ressource' handleChange={(e)=>setsearchField(e.target.value)}/>
-                <table class="table table-hover">
+                <table className="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">
@@ -88,14 +85,14 @@ export default function Homeressourcensable(props){
                     {filtreedRessources.length > 0
                                         ? filtreedRessources.map((ressource) => {
                                             
-                        return(<tr class="table-info">
+                        return(<tr className="table-info">
                             <th scope="row">
                                 <PrintComponent ressource={ressource}/>
                             </th>
                             <td>{ressource.nomRessource}</td>
                             <td>{ressource.descriptionRes}</td>
                             <td><LocalisationRessource idLocalisationA={ressource.localisation}/></td>
-                            <td ><a href='#' class="badge bg-info rounded-pill" onClick={() => rowEventsUpdateAnomalie(ressource.id)} ><NbreAnomalie idRessourceA={ressource.id}/></a></td>
+                            <td ><a href='#' className="badge bg-info rounded-pill" onClick={() => rowEventsUpdateAnomalie(ressource.id)} ><NbreAnomalie idRessourceA={ressource.id}/></a></td>
                             <td style={{color:"red"}} onClick={() => rowEventsDelete(ressource.id)} ><MdDeleteForever/></td>
                         </tr>);
                         })

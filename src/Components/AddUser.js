@@ -40,23 +40,23 @@ export default function AddUser(props) {
                 <form onSubmit={handleSubmit}>
                 <Modal.Body>
                     <div>
-                        <div class="form-group">
-                            <label for="id" class="form-label mt-2">Identifiant :</label>
-                            <input type="text" class="form-control" id="id" placeholder="ABC123" onChange={(event) => { setidentifiant(event.target.value) }}required/>
-                            <small class="form-text text-muted">Chaque responsable a un identifiant unique.</small>
+                        <div className="form-group">
+                            <label for="id" className="form-label mt-2">Identifiant :</label>
+                            <input type="text" className="form-control" id="id" placeholder="ABC123" onChange={(event) => { setidentifiant(event.target.value) }}required/>
+                            <small className="form-text text-muted">Chaque responsable a un identifiant unique.</small>
                         </div>
-                        <div class=" row form-group">
-                            <div class="col-sm">
-                                <input type="text" class="form-control" id="nom"  placeholder="Nom"onChange={(event) => { setnom(event.target.value) }}required/>
+                        <div className=" row form-group">
+                            <div className="col-sm">
+                                <input type="text" className="form-control" id="nom"  placeholder="Nom"onChange={(event) => { setnom(event.target.value) }}required/>
                             </div>
-                            <div class="col-sm">
-                            <input type="text" class="form-control" id="prenom"placeholder="Prénom"onChange={(event) => { setprenom(event.target.value) }}required/>
+                            <div className="col-sm">
+                            <input type="text" className="form-control" id="prenom"placeholder="Prénom"onChange={(event) => { setprenom(event.target.value) }}required/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="exemple@gmail.com" onChange={(event) => { setemail(event.target.value) }}required/>
+                        <div className="form-group">
+                            <input type="email" className="form-control" id="email" placeholder="exemple@gmail.com" onChange={(event) => { setemail(event.target.value) }}required/>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <input 
                                 type="password" 
                                 id="motdepasse1" 
@@ -70,7 +70,7 @@ export default function AddUser(props) {
                                 />
                                   <div className="invalid-feedback">Le mot de passe doit contenir au moins 6 caractères!</div>
                         </div>
-                        <div class="form-group">
+                        <div className="form-group">
                             <input 
                                 type="password" 
                                 id="motdepasse2" 
@@ -90,7 +90,7 @@ export default function AddUser(props) {
                                 required
                                 />
                                 <div className="invalid-feedback">Les mots de passe ne sont pas identiques!</div>
-                                <div class="valid-feedback">Parfait! Les mots de passe sont identiques!</div>
+                                <div className="valid-feedback">Parfait! Les mots de passe sont identiques!</div>
                         </div>
                     </div>
                 </Modal.Body>

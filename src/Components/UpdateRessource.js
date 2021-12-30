@@ -11,13 +11,13 @@ export default function UpdateRessource(props) {
                 <Modal.Body>
                 <div> 
                      <legend>Code : XXX</legend>
-                        <div class="form-group">
-                            <label for="nom" class="form-label">Nom :</label>
-                            <input type="text" class="form-control" id="nom"  placeholder="Nom"/>
+                        <div className="form-group">
+                            <label for="nom" className="form-label">Nom :</label>
+                            <input type="text" className="form-control" id="nom"  placeholder="Nom"/>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleTextarea" class="form-label">Description de la ressource :</label>
-                            <textarea class="form-control" id="exampleTextarea" rows="3"placeholder='Une petite description de votre ressource..'></textarea>
+                        <div className="form-group">
+                            <label for="exampleTextarea" className="form-label">Description de la ressource :</label>
+                            <textarea className="form-control" id="exampleTextarea" rows="3"placeholder='Une petite description de votre ressource..'></textarea>
                         </div>
                 </div>
                 </Modal.Body>

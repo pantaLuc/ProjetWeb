@@ -64,13 +64,13 @@ const Login = () => {
                   <h1 style={{textAlign:"center"}}><BsFileEarmarkLock/> AUTHENTIFIEZ-VOUS</h1>
             <div style={{width:'40%'}}  className="container alert alert-dismissible alert-secondary">
             <form onSubmit={handleSubmitLogin}>
-            <div class="form-group">
-                <label for="id" class="form-label mt-2">Identifiant :</label>
-                <input type="text" class="form-control" id="id" placeholder="ABC123" onChange={e => setusername(e.target.value)}required/>
+            <div className="form-group">
+                <label for="id" className="form-label mt-2">Identifiant :</label>
+                <input type="text" className="form-control" id="id" placeholder="ABC123" onChange={e => setusername(e.target.value)}required/>
             </div>
-            <div class="form-group">
-                <label for="password" class="form-label mt-2">Mot de passe :</label>
-                <input type="password" class="form-control" id="password" placeholder="votre mot de passe" onChange={e => setpassword(e.target.value)}required/>
+            <div className="form-group">
+                <label for="password" className="form-label mt-2">Mot de passe :</label>
+                <input type="password" className="form-control" id="password" placeholder="votre mot de passe" onChange={e => setpassword(e.target.value)}required/>
             </div>
             <button className="btn btn-dark" type="submit" >Se Connecter</button>
         </form>

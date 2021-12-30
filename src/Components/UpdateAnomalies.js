@@ -60,7 +60,7 @@ export default function UpdateAnomalies(props) {
                 <form >
                 <Modal.Body>
                 <div> 
-                <table class="table table-hover" >
+                <table className="table table-hover" >
                     <thead>
                         <tr>
                             <th scope="col"><GiSandsOfTime/></th>

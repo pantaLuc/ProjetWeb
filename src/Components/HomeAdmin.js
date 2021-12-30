@@ -12,13 +12,17 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home(props){
     const navigate = useNavigate();
-
+    const [idRrespo, setidRrespo] = useState()
     const [showAdd, setShowAdd] = useState(false);
     const handleCloseAdd = () => setShowAdd(false);
     const rowEventsAdd = () => { setShowAdd(true); }
     const [Showlistressources, setShowlistressources] = useState(false);
-    const handleCloselist = () => setShowlistressources(false);
-    const rowEventslist = () => { setShowlistressources(true); }
+    const handleCloselist = () => {
+        setidRrespo();
+        setShowlistressources(false);}
+    const rowEventslist = (id) => { 
+        setidRrespo(id);
+        setShowlistressources(true); }
     const [searchField, setsearchField] = useState('');
     const [ListeRespo, setListeRespo] = useState(
                                         []);
@@ -46,7 +50,7 @@ export default function Home(props){
             <div className='container'>
                 <h1 style={{textAlign:"center"}}><MdGroups/> Les responsables de maintenance :</h1>
                 <Search placeholder='Chercher par : Identifiant / Nom / Prénom / Service' handleChange={(e)=>setsearchField(e.target.value)}/>
-                <table class="table table-hover" >
+                <table className="table table-hover" >
                     <thead>
                         <tr>
                         <th scope="col">
@@ -64,9 +68,9 @@ export default function Home(props){
                     {filtreedRespo.length > 0
                                         ? filtreedRespo.map((respo) => {
                                             
-                        return(<tr class="table-info">
+                        return(<tr className="table-info">
                             {console.log(respo)}
-                            <th scope="row"><a href='#' onClick={rowEventslist}>{respo.username}</a></th>
+                            <th scope="row"><a href='#' onClick={()=>rowEventslist(respo.id)}>{respo.username}</a></th>
                             <td>{respo.first_name}</td>
                             <td>{respo.last_name}</td>
                             <td>{respo.email}</td>
@@ -79,7 +83,7 @@ export default function Home(props){
                     </tbody>
                     </table>
                     <AddUser rowEventsAdd={showAdd} handleClose={handleCloseAdd} />
-                    <RessourcesResp rowEventslist={Showlistressources} handleClose={handleCloselist}/>
+                    <RessourcesResp rowEventslist={Showlistressources} handleClose={handleCloselist} idRrespo={idRrespo}/>
 
             </div>
             </div>

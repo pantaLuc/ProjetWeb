@@ -6,7 +6,10 @@ import AddService from './AddService';
 import Header from './Header';
 import axios from'axios'
 import Delete from './Delete';
+import { useNavigate } from "react-router-dom";
+
 export default function Service(props){
+    const navigate = useNavigate();
     const [serviceid, setserviceid] = useState()
     const [showAddService, setshowAddService] = useState(false);
     const handleCloseAddService = () => setshowAddService(false);
@@ -28,6 +31,9 @@ export default function Service(props){
         service.descriptionService.toLowerCase().includes(searchField.toLowerCase())
     ));
     useEffect(() => {
+        {localStorage.getItem('token')? 
+        (localStorage.getItem('role') != 'admin'&& navigate("/"))
+        :navigate("/")}
         axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listServices/`)
                 .then((res) => {
                     setListeService(res.data);
@@ -54,8 +60,8 @@ export default function Service(props){
                             <div className="toast-header">
                                 <strong className="me-auto"> {service.nomServ}</strong>
                                 <small>{service.date}</small>
-                                <button type="button" class="btn ms-2 mb-1">
-                                    <a href="#" class="card-link" style={{color:"red"}} onClick={() => rowEventsDelete(service.id)}> <MdDeleteForever/></a>
+                                <button type="button" className="btn ms-2 mb-1">
+                                    <a href="#" className="card-link" style={{color:"red"}} onClick={() => rowEventsDelete(service.id)}> <MdDeleteForever/></a>
                                 </button>
                             </div>
                             <div className="toast-body">

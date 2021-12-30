@@ -7,7 +7,6 @@ export default function AddRessources(props) {
     const [location, setLocation] = useState()
     const [description, setDescription] = useState()
     const [listeLocalisation, setListeLocalisation] = useState([])
-    const imprimerPage = () => { window.print();}
     useEffect(() => {
         axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/lisLocalisation/`)
                     .then((res) => {
@@ -46,9 +45,9 @@ export default function AddRessources(props) {
                 <form onSubmit={handleSubmit} >
                 <Modal.Body>
                     <div>
-                        <div class="form-group">
-                                <label for="nom" class="form-label">Nom :</label>
-                                <input type="text" class="form-control" id="nom"  placeholder="Nom" onChange={(event) => { setNom(event.target.value) }}/>
+                        <div className="form-group">
+                                <label for="nom" className="form-label">Nom :</label>
+                                <input type="text" className="form-control" id="nom"  placeholder="Nom" onChange={(event) => { setNom(event.target.value) }}/>
                         </div>
                         <div className="form-group">
                         <label for="select" className="form-label">Localisation :</label>
@@ -62,9 +61,9 @@ export default function AddRessources(props) {
                             }
                         </select>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleTextarea" class="form-label">Description de la ressource :</label>
-                            <textarea class="form-control" id="exampleTextarea" rows="3"placeholder='Une petite description de votre ressource..' onChange={(event) => { setDescription(event.target.value) }}></textarea>
+                        <div className="form-group">
+                            <label for="exampleTextarea" className="form-label">Description de la ressource :</label>
+                            <textarea className="form-control" id="exampleTextarea" rows="3"placeholder='Une petite description de votre ressource..' onChange={(event) => { setDescription(event.target.value) }}></textarea>
                         </div>
 
                     </div>
