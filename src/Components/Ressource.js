@@ -33,20 +33,20 @@ export default function Ressource(props) {
     )
     useEffect(() => {
         {ressource.id === "" && 
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/ressource/${id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/ressource/${id}`)
         .then((res) => {
             setressource(res.data);
           });
         }
         
         {localisationR.id ==="" &&
-            axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/localisation/${localisation}`)
+            axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/localisation/${localisation}`)
             .then((res) => {
                 setlocalisationR(res.data)
             });
         }
         { ressource.id !="" &&
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listeAnomalieParRessource/${ressource.id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/listeAnomalieParRessource/${ressource.id}`)
         .then((res) => {
         setListeAnomalie(res.data)});}
         
@@ -65,7 +65,7 @@ export default function Ressource(props) {
                 <h6 className="card-title">{ressource.descriptionRes}</h6>
             </div>
             <div className="card-body">
-                <QRCode value={`http://projet-web-two.vercel.app/Ressource/${nom}/${localisation}/${id}`} />
+                <QRCode value={`${process.env.REACT_APP_API_FRONT_URL}/Ressource/${nom}/${localisation}/${id}`} />
             </div>
             <div className="card-body">
                 <p className="card-text">Liste des anomalies</p>

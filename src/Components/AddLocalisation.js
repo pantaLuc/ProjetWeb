@@ -16,7 +16,7 @@ export default function AddLocalisation(props) {
         console.log(localisation);
         axios({
             method: "POST",
-            url: "https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/localisation",
+            url: `${process.env.REACT_APP_API_URL}/api/ressources/localisation`,
             data: JSON.stringify(localisation),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

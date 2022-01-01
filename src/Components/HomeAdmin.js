@@ -36,7 +36,7 @@ export default function Home(props){
             respo.email.toLowerCase().includes(searchField.toLowerCase())
         ));
         useEffect(() => {
-            axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/users/listuser`)
+            axios.get(`${process.env.REACT_APP_API_URL}/api/users/listuser`)
                     .then((res) => {
                         setListeRespo(res.data);
             });

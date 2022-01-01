@@ -22,7 +22,7 @@ export default function AddUser(props) {
         console.log(user);
         axios({
             method: "POST",
-            url: "https://gest-maintance-univ-rouen.herokuapp.com/api/users/register/",
+            url: `${process.env.REACT_APP_API_URL}/api/users/register/`,
             data: JSON.stringify(user),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

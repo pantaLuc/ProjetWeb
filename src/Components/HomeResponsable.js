@@ -52,7 +52,7 @@ export default function Homeressourcensable(props){
         ressource.descriptionRes.toLowerCase().includes(searchField.toLowerCase())
     ));
     useEffect(() => {
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/responsable/ressources/${localStorage.getItem('id')}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/responsable/ressources/${localStorage.getItem('id')}`)
                     .then((res) => {
                         setListeRessource(res.data);
             });

@@ -21,7 +21,7 @@ export default function FormAnomalie(props){
     useEffect(() => {
         
         {idRessource && 
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/ressource/${idRessource}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/ressource/${idRessource}`)
                     .then((res) => {
                         console.log(res.data)
                         setRessource(res.data);
@@ -29,20 +29,20 @@ export default function FormAnomalie(props){
         }
         console.log(idRessource)
         console.log(ressource)
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/lisLocalisation/`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/lisLocalisation/`)
                     .then((res) => {
                         console.log(res.data)
                         setListeLocalisation(res.data);
             });
             console.log(location)
         {(location && location != 'autre')?
-            axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/ressourcesLocalisation/${location}`)
+            axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/ressourcesLocalisation/${location}`)
                             .then((res) => {
                                 console.log(res.data)
                                 setListeRessourceLocal(res.data);
                                 {!(idRessource) && setRessource(res.data[0])}
                 })
-            : axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listRessource/`)
+            : axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/listRessource/`)
                             .then((res) => {
                                 console.log(res.data)
                                 setListeRessourceLocal(res.data);

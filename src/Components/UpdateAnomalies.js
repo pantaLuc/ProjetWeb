@@ -16,14 +16,14 @@ export default function UpdateAnomalies(props) {
     const [listeAnomalie, setlisteAnomalie] = useState([])
     useEffect(() => {
         {props.id &&
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/ressource/${props.id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/ressource/${props.id}`)
                     .then((res) => {
                         console.log(res.data)
                         setressource(res.data);
             });
         }
         {props.id &&
-            axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listeAnomalieParRessource/${props.id}`)
+            axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/listeAnomalieParRessource/${props.id}`)
                     .then((res) => {
                         console.log(res.data)
                         setlisteAnomalie(res.data);
@@ -42,7 +42,7 @@ export default function UpdateAnomalies(props) {
         }
         axios({
             method: "PUT",
-            url: `https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/anomalieExistant/${anomalie.id}`,
+            url: `${process.env.REACT_APP_API_URL}/api/ressources/anomalieExistant/${anomalie.id}`,
             data: JSON.stringify(anomalieupdate),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

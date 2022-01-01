@@ -8,7 +8,7 @@ export default function RessourcesResp(props) {
     const [listRessource, setlistRessource] = useState([])
     useEffect(() => {
         {props.idRrespo &&
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/responsable/ressources/${props.idRrespo}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/responsable/ressources/${props.idRrespo}`)
         .then((res) => {
             console.log(res.data)
             setlistRessource(res.data);

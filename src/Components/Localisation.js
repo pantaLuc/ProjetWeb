@@ -36,7 +36,7 @@ export default function Localisation(props){
         {localStorage.getItem('token')? 
         (localStorage.getItem('role') != 'admin'&& navigate("/"))
         :navigate("/")}
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/lisLocalisation`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/lisLocalisation`)
                 .then((res) => {
                     setListeLocalisation(res.data);
                 });

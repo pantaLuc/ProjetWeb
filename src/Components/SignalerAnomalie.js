@@ -16,7 +16,7 @@ export default function SignalerAnomalie(props) {
     console.log(anomalie);
     axios({
       method: "POST",
-      url: "https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/anomalie",
+      url: `${process.env.REACT_APP_API_URL}/api/ressources/anomalie`,
       data: JSON.stringify(anomalie),
       headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -38,7 +38,7 @@ export default function SignalerAnomalie(props) {
     console.log( JSON.stringify(anomalieAsignaler))
       axios({
         method: "POST",
-        url: "https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/signalerAnomalie/",
+        url: `${process.env.REACT_APP_API_URL}/api/ressources/signalerAnomalie/`,
         data: JSON.stringify(anomalieAsignaler),
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

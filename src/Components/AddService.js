@@ -12,7 +12,7 @@ export default function AddService(props) {
     const [listeRespo, setListeRespo] = useState([]);
     const [description, setdescription] = useState();
     useEffect(() => {
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/users/listuser`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/users/listuser`)
                     .then((res) => {
                         setListeRespo(res.data);
                         console.log(listeRespo)
@@ -31,7 +31,7 @@ export default function AddService(props) {
         console.log(JSON.stringify(service));
         axios({
             method: "POST",
-            url: "https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/service",
+            url: `${process.env.REACT_APP_API_URL}/api/ressources/service`,
             data: JSON.stringify(service),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

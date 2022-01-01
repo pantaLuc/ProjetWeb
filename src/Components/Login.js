@@ -10,7 +10,7 @@ async function loginUser(credentials) {
     
     return axios({
         method: "POST",
-        url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/login/`,
+        url: `${process.env.REACT_APP_API_URL}/api/users/login/`,
         data: JSON.stringify(credentials),
         headers: {
             'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ const Login = () => {
           setToken(token);
           axios({
             method: "GET",
-            url: `https://gest-maintance-univ-rouen.herokuapp.com/api/users/user/`,
+            url: `${process.env.REACT_APP_API_URL}/api/users/user/`,
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization':`Token ${token}`

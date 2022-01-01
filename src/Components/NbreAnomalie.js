@@ -4,7 +4,7 @@ import axios
 export default function NbreAnomalie(props) {
     const [nombreAnomalie, setnombreAnomalie] = useState(0);
     useEffect(() => {
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listeAnomalieParRessource/${props.idRessourceA}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/listeAnomalieParRessource/${props.idRessourceA}`)
         .then((res) => {
                     setnombreAnomalie(res.data.length);
                 

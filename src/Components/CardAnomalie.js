@@ -4,7 +4,7 @@ import axios from 'axios';
 export default function CardAnomalie (props) {
     const [anomaliInfo, setanomaliInfo] = useState([])
     useEffect(() => {
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/anomalie/${props.anomalie.anomalie}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/anomalie/${props.anomalie.anomalie}`)
         .then((res) => {
             console.log(res.data)
             setanomaliInfo(res.data)
@@ -17,7 +17,7 @@ export default function CardAnomalie (props) {
         }
          axios({
             method: "PUT",
-            url: `https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/anomalieExistant/${a.id}`,
+            url: `${process.env.REACT_APP_API_URL}/api/ressources/anomalieExistant/${a.id}`,
             data: JSON.stringify(anomalieupdate),
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

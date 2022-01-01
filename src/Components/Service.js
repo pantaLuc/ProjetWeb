@@ -33,8 +33,8 @@ export default function Service(props){
     useEffect(() => {
         {localStorage.getItem('token')? 
         (localStorage.getItem('role') != 'admin'&& navigate("/"))
-        :navigate("/")}
-        axios.get(`https://gest-maintance-univ-rouen.herokuapp.com/api/ressources/listServices/`)
+    :navigate("/")}
+        axios.get(`${process.env.REACT_APP_API_URL}/api/ressources/listServices/`)
                 .then((res) => {
                     setListeService(res.data);
                 });
